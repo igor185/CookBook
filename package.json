@@ -6,7 +6,7 @@
   "scripts": {
     "build": "concurrently \"cd client && npm run build\"",
     "build-server": "concurrently \"cd server && npm run build\"",
-    "heroku-postbuild": "(npm run build) && (npm run build-server)",
+    "heroku-postbuild": "npm run build-server",
     "install": "(cd client && npm i) && (cd server && npm i)",
     "start": "cd server && npm run start"
   },
