@@ -12,6 +12,7 @@ export interface IProps {
 }
 
 
+
 const RecipeConstructor = (props: IProps) => {
     const {imageUrl} = props.recipe;
 
