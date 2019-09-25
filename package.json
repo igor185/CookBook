@@ -1,0 +1,23 @@
+{
+  "name": "cookbook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "concurrently \"cd client && npm run build\"",
+    "build-server": "concurrently \"cd server && npm run build\"",
+    "heroku-postbuild": "(npm run build) && (npm run build-server)",
+    "install": "(cd client && npm i) && (cd server && npm i)",
+    "start": "cd server && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igor185/CookBook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/igor185/CookBook/issues"
+  },
+  "homepage": "https://github.com/igor185/CookBook#readme"
+}

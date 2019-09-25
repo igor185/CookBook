@@ -4,3 +4,10 @@ export default interface IRecipe{
     description: string,
     imageUrl?: string
 }
+
+export const newRecipeDefault = {
+    id: '',
+    name: '',
+    description: '',
+    imageUrl: ''
+}
