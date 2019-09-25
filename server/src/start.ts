@@ -8,6 +8,7 @@ const port = Number(process.env.PORT || 3000);
 createConnection(dbConfig)
     .then(connection => connection.runMigrations())
     .then(() => {
+
         app.listen(port, () => {
             logger.info('Express server started on port: ' + port);
         });

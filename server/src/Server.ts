@@ -4,11 +4,13 @@ import { Request, Response } from 'express';
 import logger from 'morgan';
 import path from 'path';
 import BaseRouter from './routes';
+import cors from 'cors';
 
 // Init express
 const app = express();
 
 // Add middleware/settings/routes to express.
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

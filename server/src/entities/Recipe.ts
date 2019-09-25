@@ -3,7 +3,7 @@ const uuid = require('uuid/v4');
 
 @Entity()
 export class Recipe {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id!: string;
 
     @Column()
@@ -12,7 +12,7 @@ export class Recipe {
     @Column()
     description!: string;
 
-    @Column()
+    @Column({nullable: true})
     imageUrl?: string;
 
     constructor(name: string, description: string, imageUrl?: string) {

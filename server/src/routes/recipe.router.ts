@@ -19,3 +19,5 @@ router
             .then(() => res.sendStatus(200))
             .catch(next)
     });
+
+export default router;
