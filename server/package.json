@@ -4,7 +4,7 @@
   "scripts": {
     "build": "npm i && node ./util/build.js",
     "lint": "tslint --project \"tsconfig.json\"",
-    "start": "cross-env ENV_FILE=production node -r ./env -r module-alias/register ./dist/start.js",
+    "start": "npm run build && cross-env ENV_FILE=production node -r ./env -r module-alias/register ./dist/start.js",
     "start-dev": "nodemon --config \"./util/nodemon.json\"",
     "test": "nodemon --config \"./util/nodemon.test.json\""
   },
