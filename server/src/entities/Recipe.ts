@@ -4,7 +4,7 @@ const uuid = require('uuid/v4');
 @Entity()
 export class Recipe {
     @PrimaryGeneratedColumn()
-    id!: number;
+    id!: string;
 
     @Column()
     name!: string;
