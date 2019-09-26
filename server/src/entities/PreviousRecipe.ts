@@ -8,7 +8,7 @@ export class PreviousRecipe{
     @PrimaryColumn('uuid')
     id: string;
 
-    @ManyToOne(type => Recipe, recipe => recipe.id)
+    @ManyToOne(type => Recipe, recipe => recipe.id, {onDelete: "CASCADE"})
     prevRecipe: Recipe;
 
     @ManyToOne(type => CurrentRecipe, CurrentRecipe => CurrentRecipe.id, {onDelete: "CASCADE"})

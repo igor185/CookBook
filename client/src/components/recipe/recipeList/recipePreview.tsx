@@ -5,7 +5,7 @@ import {config} from "../../../config";
 import moment from "moment";
 import './style.scss';
 
-const RecipePreview = (props: { recipe: IRecipe }) => {
+const RecipePreview = (props: { recipe: IRecipe, deleteRecipe: () => void }) => {
     const {name, description, imageUrl, createdAt} = props.recipe;
 
     const [hover, setHover] = useState(false);
@@ -22,6 +22,7 @@ const RecipePreview = (props: { recipe: IRecipe }) => {
                 }}/>
                 <Button icon={'trash'} className={'icon'} onClick={(e) => {
                     e.preventDefault();
+                    props.deleteRecipe()
                 }}/>
             </div>)}
             <Card.Content>
