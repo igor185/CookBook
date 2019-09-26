@@ -36,10 +36,8 @@ class SocketService {
 
     private _initSocket() {
         if (!SocketService._socket) {
-            SocketService._socket =
-                process.env.NODE_ENV === 'production'
-                    ? io('http://localhost:5000')
-                    : io(window.location.pathname);
+            const url = window.location.pathname.indexOf('localhost') === -1 ? window.location.pathname : 'http://localhost:5000'
+            SocketService._socket = io(url);
             if (SocketService._socket) {
                 SocketService._socket.on('connect', () => {
                     console.log('socket connected')
