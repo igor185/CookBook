@@ -24,7 +24,7 @@ function* createRecipe(action: any) {
             body:{
                 ...action.payload.recipe || null
             }
-        })
+        });
         console.log(recipe)
     }catch (e) {
         console.log(e);

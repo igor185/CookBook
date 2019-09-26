@@ -1,4 +1,5 @@
-import {CREATE_RECIPE, FETCH_RECIPES} from "./actionTypes";
+import {ADD_RECIPE_TO_LIST, CREATE_RECIPE, FETCH_RECIPES} from "./actionTypes";
+import IRecipe from "../../../interfaces/IRecipe";
 
 export const fetchRecipes = () => {
     return {
@@ -14,3 +15,10 @@ export const createRecipe = (recipe : {name: string, description: string, imageU
         }
     }
 };
+
+export const addRecipeToList = (recipe: IRecipe) => {
+    return {
+        type: ADD_RECIPE_TO_LIST,
+        payload: {recipe}
+    }
+}
