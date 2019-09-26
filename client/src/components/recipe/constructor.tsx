@@ -1,6 +1,6 @@
 import React from 'react';
 import IRecipe from "../../interfaces/IRecipe";
-import {Form, Image, Input, Modal, TextArea} from "semantic-ui-react";
+import {Button, Form, Image, Input, Modal, TextArea} from "semantic-ui-react";
 import {config} from "../../config";
 import './recipe.scss';
 
@@ -22,9 +22,16 @@ const RecipeConstructor = (props: IProps) => {
             <Modal.Content image scrolling className={"recipePhoto"}>
                 <Image src={imageUrl || config.DEFAULT_RECIPE} wrapped ui={false}/>
                 <Modal.Description>
-                    <Input focus placeholder='Name'/>
                     <Form>
-                        <TextArea placeholder="Describe"/>
+                        <Form.Field>
+                            <label>Name</label>
+                            <input placeholder='Name' />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Description</label>
+                            <TextArea placeholder='Description' />
+                        </Form.Field>
+                        <Button type='submit'>Submit</Button>
                     </Form>
                 </Modal.Description>
             </Modal.Content>
