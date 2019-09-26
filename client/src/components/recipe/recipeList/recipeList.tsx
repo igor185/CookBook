@@ -1,13 +1,12 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import IRecipe, {newRecipeDefault} from "../../../interfaces/IRecipe";
+import IRecipe from "../../../interfaces/IRecipe";
 import Spinner from "../../spinner/Spinner";
 import {addRecipeToList, createRecipe, fetchRecipes} from "../redux/actions";
 import RecipePreview from "./recipePreview";
-import RecipeConstructor from "../constructor";
-import {Button} from "semantic-ui-react";
 import SocketService from "../../../services/socket.service";
+import {NavLink} from "react-router-dom";
 
 interface IProps {
     recipes: null | IRecipe[],
@@ -21,22 +20,17 @@ const RecipeList = (props: IProps) => {
         SocketService.on('new-recipe', props.addRecipeToList);
     }
 
-    const [openModal, setModal] = useState(false);
     if (!props.recipes) {
         props.fetchRecipes();
         return <Spinner/>
     }
 
     return (
-        <div className={"container"}>
-            <RecipeConstructor recipe={newRecipeDefault} open={openModal} trigger={
-                <div className={'create-recipe-wrp'} onClick={() => setModal(true)}>
-                    <Button color="teal" centered>Create new recipe</Button>
-                </div>} onSave={props.createRecipe}
-             onCancel={() => setModal(false)}/>
-            <div className={"cards-wrp"}>
-                {props.recipes.map(recipe => <RecipePreview key={recipe.id} recipe={recipe}/>)}
-            </div>
+        <div className={"cards-wrp"}>
+            {props.recipes.map(recipe =>
+                <NavLink to={'/recipe-view/' + recipe.id}>
+                    <RecipePreview key={recipe.id} recipe={recipe}/>
+                </NavLink>)}
         </div>
     )
 };

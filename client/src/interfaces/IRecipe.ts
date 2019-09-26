@@ -1,11 +1,12 @@
-import {INewIngredient} from "./IIngredien";
+import IIngredient, {INewIngredient} from "./IIngredien";
 
 export default interface IRecipe{
     id: string,
     name: string,
     description: string,
     imageUrl?: string,
-    createdAt: Date
+    createdAt: Date,
+    ingredients: IIngredient[]
 }
 
 export const newRecipeDefault: INewRecipe = {
