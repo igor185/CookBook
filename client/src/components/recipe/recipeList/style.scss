@@ -1,0 +1,12 @@
+.preview-recipe {
+  .preview-icons-wrp {
+    position: absolute;
+    right: 0;
+  }
+
+  :hover{
+    .preview-icons-wrp{
+      right: 50px;
+    }
+  }
+}

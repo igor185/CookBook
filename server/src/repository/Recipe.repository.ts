@@ -6,7 +6,7 @@ import {EntityRepository, Repository} from "typeorm";
 class RecipeRepository extends Repository<Recipe> {
 
     async getAll() {
-        return this.find()
+        return this.find({order: {createdAt : -1}, relations: ['ingredients']})
     }
 
     async createRecipe(recipe: Recipe) {

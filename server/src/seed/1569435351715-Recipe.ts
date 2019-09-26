@@ -5,7 +5,7 @@ import RecipeRepository from "../repository/Recipe.repository";
 export class Recipe1569435351715 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
-        const recipe = new Recipe('Awesome pizza!', 'It is a simple method to cook pizza')
+        const recipe = new Recipe('Awesome pizza!', 'It is a simple method to cook pizza', '', [], 1);
         await getCustomRepository(RecipeRepository).save(recipe);
     }
 

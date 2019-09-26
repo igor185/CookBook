@@ -1,43 +1,41 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import IRecipe, {newRecipeDefault} from "../../../interfaces/IRecipe";
+import IRecipe from "../../../interfaces/IRecipe";
 import Spinner from "../../spinner/Spinner";
-import {addRecipeToList, createRecipe, fetchRecipes} from "../redux/actions";
+import {addRecipeToList, createRecipe, fetchRecipes, deleteRecipe} from "../redux/actions";
 import RecipePreview from "./recipePreview";
-import RecipeConstructor from "../constructor";
-import {Button, Card, Container} from "semantic-ui-react";
 import SocketService from "../../../services/socket.service";
+import {NavLink} from "react-router-dom";
 
 interface IProps {
-    recipes: null | IRecipe[],
+    recipes: null | Array<{
+        id: string,
+        createAt: string;
+        recipe: IRecipe
+    }>,
     fetchRecipes: () => any,
     createRecipe: (recipe: { name: string, description: string, imageUrl?: string }) => any,
     addRecipeToList: (recipe: IRecipe) => any
+    deleteRecipe: (id: string) => any;
 }
 
 const RecipeList = (props: IProps) => {
     if (!SocketService.added(props.addRecipeToList)) {
         SocketService.on('new-recipe', props.addRecipeToList);
-        console.log('add recipe')
     }
 
-    const [openModal, setModal] = useState(false);
     if (!props.recipes) {
         props.fetchRecipes();
         return <Spinner/>
     }
 
     return (
-        <div className={"container"}>
-            <RecipeConstructor recipe={newRecipeDefault} open={openModal} trigger={
-                <div className={'create-recipe-wrp'} onClick={() => setModal(true)}>
-                    <Button color="teal" centered>Create new recipe</Button>
-                </div>} onSave={props.createRecipe}
-             onCancel={() => setModal(false)}/>
-            <div className={"cards-wrp"}>
-                {props.recipes.map(recipe => <RecipePreview key={recipe.id} recipe={recipe}/>)}
-            </div>
+        <div className={"cards-wrp"}>
+            {props.recipes.map(recipe =>
+                <NavLink to={'/recipe-view/' + recipe.recipe.id}>
+                    <RecipePreview key={recipe.id} recipe={recipe.recipe} deleteRecipe={() => props.deleteRecipe(recipe.recipe.id)}/>
+                </NavLink>)}
         </div>
     )
 };
@@ -50,7 +48,8 @@ const mapStateToProps = (rootState: any, props: any) => ({
 const actions = {
     fetchRecipes,
     createRecipe,
-    addRecipeToList
+    addRecipeToList,
+    deleteRecipe
 };
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(actions, dispatch);
