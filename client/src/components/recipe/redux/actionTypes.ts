@@ -1,2 +1,4 @@
 export const FETCH_RECIPES = "FETCH_RECIPES";
 export const SET_RECIPES = "SET_RECIPES";
+export const CREATE_RECIPE = "CREATE_RECIPE";
+export const ADD_RECIPE_TO_LIST = "ADD_RECIPE_TO_LIST";
