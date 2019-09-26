@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import IRecipe, {newRecipeDefault} from "../../../interfaces/IRecipe";
@@ -22,19 +22,23 @@ const RecipeList = (props: IProps) => {
         console.log('add recipe')
     }
 
+    const [openModal, setModal] = useState(false);
     if (!props.recipes) {
         props.fetchRecipes();
         return <Spinner/>
     }
 
     return (
-        <Container>
-            <RecipeConstructor recipe={newRecipeDefault} trigger={<Button>Create new recipe</Button>}
-                               onSave={props.createRecipe}/>
-            <Card.Group>
+        <div className={"container"}>
+            <RecipeConstructor recipe={newRecipeDefault} open={openModal} trigger={
+                <div className={'create-recipe-wrp'} onClick={() => setModal(true)}>
+                    <Button color="teal" centered>Create new recipe</Button>
+                </div>} onSave={props.createRecipe}
+             onCancel={() => setModal(false)}/>
+            <div className={"cards-wrp"}>
                 {props.recipes.map(recipe => <RecipePreview key={recipe.id} recipe={recipe}/>)}
-            </Card.Group>
-        </Container>
+            </div>
+        </div>
     )
 };
 

@@ -3,8 +3,53 @@
 .recipePhoto{
   width: $photo-width;
   height: $photo-height;
+  img{
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .ui.modal .scrolling.content{
   height: 75vh;
+}
+
+
+.ui.labeled.icon.button, .ui.labeled.icon.button, #btn{
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+
+.create-recipe-wrp {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 10px;
+  padding-top: 10px;
+}
+
+.container{
+  background-color: rgba(50, 205, 50, 0.15);
+  width: 85%;
+  margin: 0 auto;
+  height: 100vh;
+  padding: 0 10px;
+  justify-content: center;
+}
+
+
+.cards-wrp{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 15px;
+  justify-content: center;
+}
+
+.ui.card{
+  margin: 0;
+  height: 100%;
+}
+
+.ui.card:first-child{
+  margin: 1em 0 !important;
 }
