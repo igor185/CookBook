@@ -8,35 +8,59 @@ export interface IProps {
     recipe: IRecipe,
     trigger: any,
     onCancel?: () => void,
-    onSave?: (recipe: IRecipe) => void
+    onSave: (recipe : {name: string, description: string, imageUrl?: string}) => void
 }
 
+export interface IState {
+    recipe: IRecipe
+}
+
+class RecipeConstructor extends React.Component<IProps, IState> {
+    constructor(props: Readonly<IProps>) {
+        super(props);
+        this.state = {
+            recipe: {
+                ...this.props.recipe
+            }
+        }
+    }
 
 
-const RecipeConstructor = (props: IProps) => {
-    const {imageUrl} = props.recipe;
+    render() {
+        const {imageUrl, name, description} = this.state.recipe;
 
-    return (
-        <Modal trigger={props.trigger}>
-            <Modal.Header>Create recipe</Modal.Header>
-            <Modal.Content image scrolling className={"recipePhoto"}>
-                <Image src={imageUrl || config.DEFAULT_RECIPE} wrapped ui={false}/>
-                <Modal.Description>
-                    <Form>
-                        <Form.Field>
-                            <label>Name</label>
-                            <input placeholder='Name' />
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Description</label>
-                            <TextArea placeholder='Description' />
-                        </Form.Field>
-                        <Button type='submit'>Submit</Button>
-                    </Form>
-                </Modal.Description>
-            </Modal.Content>
-        </Modal>
-    )
-};
+        return (
+            <Modal trigger={this.props.trigger}>
+                <Modal.Header>Create recipe</Modal.Header>
+                <Modal.Content image scrolling className={"recipePhoto"}>
+                    <Image src={imageUrl || config.DEFAULT_RECIPE} wrapped ui={false}/>
+                    <Modal.Description>
+                        <Form>
+                            <Form.Field>
+                                <label>Name</label>
+                                <Input type='text' placeholder='Name' value={name} onChange={(e) => {
+                                    const value = e.target.value;
+                                    this.setState((state) => ({recipe: {...state.recipe, name: value}}))
+                                }}/>
+                            </Form.Field>
+                            <Form.Field>
+                                <label>Description</label>
+                                <TextArea placeholder='Description' value={description} onChange={(e) => {
+                                    // @ts-ignore
+                                    const value = e.target.value;
+                                    this.setState((state) => ({recipe: {...state.recipe, description: value}}))
+                                }}/>
+                            </Form.Field>
+                            <Button type='submit' onClick={()=> {
+                                this.props.onSave({...this.state.recipe})
+                            }}>Create</Button>
+                        </Form>
+                    </Modal.Description>
+                </Modal.Content>
+            </Modal>
+        )
+    }
+
+}
 
 export default RecipeConstructor;

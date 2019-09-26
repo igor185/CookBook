@@ -1,5 +1,5 @@
 import {all, call, put, takeEvery} from 'redux-saga/effects';
-import {FETCH_RECIPES, SET_RECIPES} from "./actionTypes";
+import {CREATE_RECIPE, FETCH_RECIPES, SET_RECIPES} from "./actionTypes";
 import webApi from "../../../helpers/webApi";
 import {config} from "../../../config";
 
@@ -16,13 +16,34 @@ function* fetchRecipes() {
     }
 }
 
+function* createRecipe(action: any) {
+    try {
+        const recipe = yield call(webApi, {
+            endpoint: '/api/recipe',
+            method: 'PUT',
+            body:{
+                ...action.payload.recipe || null
+            }
+        })
+        console.log(recipe)
+    }catch (e) {
+        console.log(e);
+    }
+}
+
 
 function* watchFetchRecipes() {
     yield takeEvery(FETCH_RECIPES, fetchRecipes)
 }
 
+function* watchCreateRecipes() {
+    // @ts-ignore
+    yield takeEvery(CREATE_RECIPE, createRecipe)
+}
+
 export default function* () {
     yield all([
-        watchFetchRecipes()
+        watchFetchRecipes(),
+        watchCreateRecipes()
     ])
 }

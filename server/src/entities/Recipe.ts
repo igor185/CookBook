@@ -15,11 +15,15 @@ export class Recipe {
     @Column({nullable: true})
     imageUrl?: string;
 
+    @Column({nullable: true})
+    createdAt?: Date;
+
     constructor(name: string, description: string, imageUrl?: string) {
         this.id = uuid();
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
+        this.createdAt = new Date();
     }
 
 }
