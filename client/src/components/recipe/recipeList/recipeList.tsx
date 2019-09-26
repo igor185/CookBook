@@ -9,7 +9,11 @@ import SocketService from "../../../services/socket.service";
 import {NavLink} from "react-router-dom";
 
 interface IProps {
-    recipes: null | IRecipe[],
+    recipes: null | Array<{
+        id: string,
+        createAt: string;
+        recipe: IRecipe
+    }>,
     fetchRecipes: () => any,
     createRecipe: (recipe: { name: string, description: string, imageUrl?: string }) => any,
     addRecipeToList: (recipe: IRecipe) => any
@@ -28,8 +32,8 @@ const RecipeList = (props: IProps) => {
     return (
         <div className={"cards-wrp"}>
             {props.recipes.map(recipe =>
-                <NavLink to={'/recipe-view/' + recipe.id}>
-                    <RecipePreview key={recipe.id} recipe={recipe}/>
+                <NavLink to={'/recipe-view/' + recipe.recipe.id}>
+                    <RecipePreview key={recipe.id} recipe={recipe.recipe}/>
                 </NavLink>)}
         </div>
     )
