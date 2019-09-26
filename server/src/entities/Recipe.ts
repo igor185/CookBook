@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Ingredient} from "./Ingredient";
 const uuid = require('uuid/v4');
 
 @Entity()
@@ -18,12 +19,18 @@ export class Recipe {
     @Column({nullable: true})
     createdAt?: Date;
 
-    constructor(name: string, description: string, imageUrl?: string) {
+    @ManyToMany(type => Ingredient)
+    @JoinTable()
+    ingredients: Ingredient[];
+
+    constructor(name: string, description: string, imageUrl: string, ingredients: Ingredient[]) {
         this.id = uuid();
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.createdAt = new Date();
+        this.ingredients = ingredients;
+
     }
 
 }

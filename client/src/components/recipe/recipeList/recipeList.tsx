@@ -6,7 +6,7 @@ import Spinner from "../../spinner/Spinner";
 import {addRecipeToList, createRecipe, fetchRecipes} from "../redux/actions";
 import RecipePreview from "./recipePreview";
 import RecipeConstructor from "../constructor";
-import {Button, Card, Container} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
 import SocketService from "../../../services/socket.service";
 
 interface IProps {
@@ -19,7 +19,6 @@ interface IProps {
 const RecipeList = (props: IProps) => {
     if (!SocketService.added(props.addRecipeToList)) {
         SocketService.on('new-recipe', props.addRecipeToList);
-        console.log('add recipe')
     }
 
     const [openModal, setModal] = useState(false);

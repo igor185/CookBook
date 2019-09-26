@@ -7,6 +7,7 @@ const Home = () => {
     new SocketService();
     return (<Switch>
         <Route to={"/"} component={RecipeList}/>
+        <Route to={'/recipe-view'} component={}/>
     </Switch>)
 };
 
