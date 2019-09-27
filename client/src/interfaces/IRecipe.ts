@@ -1,4 +1,5 @@
 import IIngredient, {INewIngredient} from "./IIngredien";
+import {config} from "../config";
 
 export default interface IRecipe {
     id: string,
@@ -14,6 +15,7 @@ export const newRecipeDefault: INewRecipe = {
     recipe: {
         id: '',
         name: '',
+        imageUrl: config.DEFAULT_RECIPE,
         description: '',
         ingredients: [],
         version: 1,

@@ -66,7 +66,12 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                     <div>
                         <Image src={imageUrl} wrapped ui={false} className={"recipePhoto"}/>
                         <ImageUploader changeUrl={(url: string) => {
-                            this.setState((state) => ({recipe: {...state.recipe, imageUrl: url}}))
+                            this.setState((state) => ({
+                                recipe: {
+                                    ...state.recipe,
+                                    recipe: {...state.recipe.recipe, imageUrl: url}
+                                }
+                            }));
                         }}>Upload photo</ImageUploader>
                     </div>
                     <Modal.Description>
@@ -88,11 +93,19 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                                 <TextArea placeholder='Description' value={description} onChange={(e) => {
                                     // @ts-ignore
                                     const value = e.target.value;
-                                    this.setState((state) => ({recipe: {...state.recipe, description: value}}))
+                                    this.setState((state) => ({
+                                        recipe: {
+                                            ...state.recipe,
+                                            recipe: {...state.recipe.recipe, description: value}
+                                        }
+                                    }));
                                 }}/>
                             </Form.Field>
                             <Form.Field>
                                 <label>Ingredients</label>
+                                <ul>
+                                    {ingredients.map(e => <li>{e.name}</li>)}
+                                </ul>
                                 <Input placeholder={"Add ingredient"} value={this.state.value} onChange={(e) => {
                                     this.setState({value: e.target.value})
                                 }}/>
@@ -100,9 +113,6 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                                     this.addIngredient({name: this.state.value});
                                     this.setState({value: ''})
                                 }}>Add</Button>
-                                <ul>
-                                    {ingredients.map(e => <li>{e.name}</li>)}
-                                </ul>
                             </Form.Field>
                         </Form>
                     </Modal.Description>

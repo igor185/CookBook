@@ -20,7 +20,7 @@ const RecipeView = (props: IProps) => {
     const id = props.match.params.id;
 
     const [option, setOption] = useState<{id: string, prevRecipe: IRecipe}>({id: '', prevRecipe: newRecipeDefault.recipe});
-    
+
     if (props.id !== id || !(props.recipes && props.recipes[0])) {
         props.fetchAllVersions(id);
         return <Spinner/>
