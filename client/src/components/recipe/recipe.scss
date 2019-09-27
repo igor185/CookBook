@@ -38,9 +38,9 @@
   width: 85%;
   margin: 0 auto;
   min-height: 100vh;
-  padding: 0 10px;
   justify-content: center;
   overflow: auto;
+  padding: 0 10px 10px;
 }
 
 
@@ -58,7 +58,7 @@
 }
 
 .ui.card:first-child{
-  margin: 1em 0 !important;
+  margin: 0 !important;
 }
 
 .grid-two-columns{

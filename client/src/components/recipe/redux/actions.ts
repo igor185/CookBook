@@ -1,4 +1,11 @@
-import {ADD_RECIPE_TO_LIST, CREATE_RECIPE, DELETE_RECIPE, FETCH_RECIPES, UPDATE_RECIPE} from "./actionTypes";
+import {
+    ADD_RECIPE_TO_LIST,
+    CREATE_RECIPE,
+    DELETE_RECIPE,
+    DELETE_RECIPE_FROM_LIST,
+    FETCH_RECIPES,
+    UPDATE_RECIPE, UPDATE_RECIPE_FROM_LIST
+} from "./actionTypes";
 import IRecipe, {INewRecipe} from "../../../interfaces/IRecipe";
 
 export const fetchRecipes = () => {
@@ -41,5 +48,19 @@ export const editRecipe = (recipe: INewRecipe) => {
               id: recipe.id,
           }
       }
+  }
+};
+
+export const deleteRecipeFromList = (id: string) => {
+  return{
+      type: DELETE_RECIPE_FROM_LIST,
+      payload: {id}
+  }
+};
+
+export const updateRecipeFromList = (recipe: any) => {
+  return{
+      type: UPDATE_RECIPE_FROM_LIST,
+      payload: {recipe}
   }
 };

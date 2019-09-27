@@ -1,4 +1,17 @@
+@import "../../../styles/variables";
+
 .preview-recipe {
+  .recipePhoto{
+    width: 100%;
+    height: $photo-height;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+    .mini.image{
+      height: 100%;
+    }
+  }
   .preview-icons-wrp {
     position: absolute;
     right: 0;
@@ -8,5 +21,22 @@
     .preview-icons-wrp{
       right: 50px;
     }
+  }
+
+  .ellipsis{
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header-name{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 45px;
   }
 }

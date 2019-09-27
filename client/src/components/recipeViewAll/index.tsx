@@ -33,7 +33,7 @@ const RecipeView = (props: IProps) => {
     if (!option.id) {
         setOption(props.recipes[0])
     }
-    const {name, description, imageUrl, ingredients, createdAt, version} = option.prevRecipe;
+    const {name, description, imageUrl, ingredients} = option.prevRecipe;
 
     const options: Array<any> = props.recipes.map(elem => ({
         key: elem.prevRecipe.id,

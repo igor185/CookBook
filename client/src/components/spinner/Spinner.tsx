@@ -2,8 +2,8 @@ import React from "react";
 import {Dimmer, Loader} from "semantic-ui-react";
 
 const Spinner = () => (
-        <Dimmer active>
-            <Loader size='massive' inline='centered'>Loading</Loader>
+        <Dimmer active inverted>
+            <Loader size='massive' inline='centered' inverted>Loading</Loader>
         </Dimmer>
 );
 
