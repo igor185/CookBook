@@ -3,7 +3,14 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import IRecipe, {INewRecipe, newRecipeDefault} from "../../../interfaces/IRecipe";
 import Spinner from "../../spinner/Spinner";
-import {addRecipeToList, createRecipe, deleteRecipe, editRecipe, fetchRecipes} from "../redux/actions";
+import {
+    addRecipeToList,
+    createRecipe,
+    deleteRecipe,
+    deleteRecipeFromList,
+    editRecipe,
+    fetchRecipes, updateRecipeFromList
+} from "../redux/actions";
 import RecipePreview from "./recipePreview";
 import SocketService from "../../../services/socket.service";
 import {NavLink} from "react-router-dom";
@@ -19,14 +26,18 @@ interface IProps {
     }>,
     fetchRecipes: () => any,
     createRecipe: (recipe: INewRecipe) => any,
-    addRecipeToList: (recipe: IRecipe) => any
-    deleteRecipe: (id: string) => any;
-    editRecipe: (recipe: INewRecipe) => any
+    addRecipeToList: (recipe: IRecipe) => any,
+    deleteRecipe: (id: string) => any,
+    editRecipe: (recipe: INewRecipe) => any,
+    deleteRecipeFromList: (id: string) => any,
+    updateRecipeFromList: (recipe: any) => any,
 }
 
 const RecipeList = (props: IProps) => {
     if (!SocketService.added(props.addRecipeToList)) {
         SocketService.on('new-recipe', props.addRecipeToList);
+        SocketService.on('delete-recipe', props.deleteRecipeFromList);
+        SocketService.on('update-recipe', props.updateRecipeFromList);
     }
 
     const [openModal, setModal] = useState(false);
@@ -73,7 +84,9 @@ const actions = {
     createRecipe,
     addRecipeToList,
     deleteRecipe,
-    editRecipe
+    editRecipe,
+    deleteRecipeFromList,
+    updateRecipeFromList
 };
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(actions, dispatch);

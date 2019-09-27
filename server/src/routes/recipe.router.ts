@@ -19,9 +19,12 @@ router
             })
             .catch(next)
     })
-    .post('/', (req: Request, res: Response, next: NextFunction) =>{
+    .post('/', (req: Request & { io: any }, res: Response, next: NextFunction) =>{
         RecipeService.update(req.body)
-            .then(data => res.send(data))
+            .then(data => {
+                req.io.emit('update-recipe', data);
+                res.send(data)
+            })
             .catch(next);
     })
     .get('/:id',(req: Request, res: Response, next: NextFunction) => {
@@ -29,9 +32,12 @@ router
           .then(data => res.send(data))
           .catch(next)
     })
-    .delete('/', (req: Request, res: Response, next: NextFunction)=> {
+    .delete('/', (req: Request & { io: any }, res: Response, next: NextFunction)=> {
         RecipeService.deleteRecipe(req.body)
-            .then(() => res.sendStatus(200))
+            .then(() => {
+                req.io.emit('delete-recipe', req.body.id);
+                res.sendStatus(200);
+            })
             .catch(next)
     });
 

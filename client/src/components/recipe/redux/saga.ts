@@ -18,7 +18,7 @@ function* fetchRecipes() {
 
 function* createRecipe(action: any) {
     try {
-        const recipe = yield call(webApi, {
+        yield call(webApi, {
             endpoint: '/api/recipe',
             method: 'PUT',
             body:{

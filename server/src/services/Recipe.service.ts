@@ -54,7 +54,7 @@ export const update = async ({id, name, description, imageUrl, ingredients, vers
 
     await getCustomRepository(CurrentRecipeRepository).update({id}, {recipe: {id: recipe.id}});
 
-    const currentRecipe = await getCustomRepository(CurrentRecipeRepository).findOne({recipe});
+    const currentRecipe = await getCustomRepository(CurrentRecipeRepository).findOne({recipe}, {relations: ['recipe', 'recipe.ingredients']});
 
     if (currentRecipe) {
         await getCustomRepository(PreviousRecipeRepository).save(new PreviousRecipe(recipe, currentRecipe));

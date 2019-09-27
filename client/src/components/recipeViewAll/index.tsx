@@ -33,7 +33,7 @@ const RecipeView = (props: IProps) => {
     if (!option.id) {
         setOption(props.recipes[0])
     }
-    const {name, description, imageUrl, ingredients, createdAt, version} = option.prevRecipe;
+    const {name, description, imageUrl, ingredients} = option.prevRecipe;
 
     const options: Array<any> = props.recipes.map(elem => ({
         key: elem.prevRecipe.id,
@@ -55,17 +55,15 @@ const RecipeView = (props: IProps) => {
                     }}
                 />
             </span>
-            <div className={"main-info"}>
-                <Image src={imageUrl} size={'big'}/>
-                <div className={"basic-info"}>
-                    <div className={"basic-info-name"}>
-                        {name}
-                    </div>
-                    <div className={"basic-info-description"}>
-                        {description.split('\n').map(i => {
-                            return <p>{i}</p>
-                        })}
-                    </div>
+            <div className="header">
+                <h2>{name}</h2>
+            </div>
+            <div className={"basic"}>
+                <Image src={imageUrl} size={'medium'} floated={'left'}/>
+                <div>
+                    {description.split('\n').map(i => {
+                        return <p>{i}</p>
+                    })}
                 </div>
             </div>
             <div className={"ingredients-wrp"}>
