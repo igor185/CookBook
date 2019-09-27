@@ -1,18 +1,31 @@
-.recipe-view-all{
-  .main-info{
-    display: grid;
-    grid-template-columns: .3fr .7fr;
-    div, img{
-      padding: 3px;
-    }
-    .basic-info{
-      .basic-info-name{
-        text-align: center;
-      }
+.recipe-view-all {
+  padding: 10px;
+
+  .header {
+    text-align: center;
+    margin: 5px 0;
+
+    h2 {
+      margin-top: 0;
     }
   }
 
-  .ingredients-wrp{
 
+  .basic {
+    float: left;
+    width: 100%;
+  }
+
+  .ingredients-wrp {
+    float: left;
+    margin-top: 25px;
+
+    label {
+      font-weight: bold;
+    }
+
+    ul {
+      margin-top: 5px;
+    }
   }
 }

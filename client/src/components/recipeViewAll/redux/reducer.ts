@@ -12,13 +12,19 @@ const initialState: {
     id: null
 };
 
+export const recipeAdapter = (arr: any) => {
+    return arr.map((elem:any) => {
+        elem.prevRecipe.ingredients = elem.prevRecipe.ingredients.reverse();
+        return elem
+    }).reverse()
+};
 
 export default function (state = initialState, action: any) {
     switch (action.type) {
         case SET_ALL_VERSIONS:
             return{
                 ...state,
-                recipes: (action.payload.recipes || []).reverse()
+                recipes: recipeAdapter(action.payload.recipes || [])
             };
         case GET_ALL_VERSIONS:
             return{
