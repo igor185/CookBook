@@ -5,8 +5,11 @@ import {config} from "../../../config";
 import moment from "moment";
 import './style.scss';
 
-const RecipePreview = (props: { recipe: IRecipe, deleteRecipe: () => void }) => {
-    const {name, description, imageUrl, createdAt} = props.recipe;
+const RecipePreview = (props: { recipe: {
+
+    id?: string;recipe: IRecipe
+    }, deleteRecipe: () => void, editRecipe: () => void }) => {
+    const {name, description, imageUrl, createdAt} = props.recipe.recipe;
 
     const [hover, setHover] = useState(false);
 
@@ -19,10 +22,11 @@ const RecipePreview = (props: { recipe: IRecipe, deleteRecipe: () => void }) => 
             <div className={"preview-icons-wrp"}>
                 <Button icon={'write'} className={'icon'} onClick={(e) => {
                     e.preventDefault();
+                    props.editRecipe();
                 }}/>
                 <Button icon={'trash'} className={'icon'} onClick={(e) => {
                     e.preventDefault();
-                    props.deleteRecipe()
+                    props.deleteRecipe();
                 }}/>
             </div>)}
             <Card.Content>

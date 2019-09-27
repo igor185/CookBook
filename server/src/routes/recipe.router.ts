@@ -14,10 +14,20 @@ router
     .put('/', (req: Request & { io: any }, res: Response, next: NextFunction) => {
         RecipeService.create(req.body)
             .then(data => {
-                req.io.emit('new-recipe', data)
+                req.io.emit('new-recipe', data);
                 res.send(data);
             })
             .catch(next)
+    })
+    .post('/', (req: Request, res: Response, next: NextFunction) =>{
+        RecipeService.update(req.body)
+            .then(data => res.send(data))
+            .catch(next);
+    })
+    .get('/:id',(req: Request, res: Response, next: NextFunction) => {
+      RecipeService.getById(req.params.id)
+          .then(data => res.send(data))
+          .catch(next)
     })
     .delete('/', (req: Request, res: Response, next: NextFunction)=> {
         RecipeService.deleteRecipe(req.body)

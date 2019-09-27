@@ -10,8 +10,9 @@ export interface IProps {
     recipe: INewRecipe,
     trigger: any,
     onCancel: () => void,
-    onSave: (recipe: { name: string, description: string, imageUrl?: string }) => void
-    open: boolean
+    onSave: (recipe: INewRecipe) => void
+    onEdit: (recipe: INewRecipe) => any
+    open: boolean,
 }
 
 export interface IState {
@@ -24,18 +25,27 @@ class RecipeConstructor extends React.Component<IProps, IState> {
         super(props);
         this.state = {
             recipe: {
-                ...this.props.recipe,
-                imageUrl: this.props.recipe.imageUrl || config.DEFAULT_RECIPE
+                id: this.props.recipe.id,
+                recipe: {
+                    ...this.props.recipe.recipe,
+                    imageUrl: this.props.recipe.recipe.imageUrl || config.DEFAULT_RECIPE
+                }
             },
             value: ''
         }
     }
 
-    addIngredient(ingredient: INewIngredient){
+    componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
+        if (prevProps.open !== this.props.open) {
+            this.setState({recipe: this.props.recipe});
+        }
+    }
+
+    addIngredient(ingredient: INewIngredient) {
         this.setState((state) => {
-            const ingredients = state.recipe.ingredients;
+            const ingredients = state.recipe.recipe.ingredients;
             ingredients.push(ingredient);
-            return{
+            return {
                 recipe: {
                     ...state.recipe,
                     ingredients
@@ -44,8 +54,10 @@ class RecipeConstructor extends React.Component<IProps, IState> {
         })
     }
 
+
     render() {
-        const {imageUrl, name, description, ingredients} = this.state.recipe;
+        const {imageUrl, name, description, ingredients} = this.state.recipe.recipe;
+
 
         return (
             <Modal trigger={this.props.trigger} open={this.props.open}>
@@ -54,7 +66,12 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                     <div>
                         <Image src={imageUrl} wrapped ui={false} className={"recipePhoto"}/>
                         <ImageUploader changeUrl={(url: string) => {
-                            this.setState((state) => ({recipe: {...state.recipe, imageUrl: url}}))
+                            this.setState((state) => ({
+                                recipe: {
+                                    ...state.recipe,
+                                    recipe: {...state.recipe.recipe, imageUrl: url}
+                                }
+                            }));
                         }}>Upload photo</ImageUploader>
                     </div>
                     <Modal.Description>
@@ -63,7 +80,12 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                                 <label>Name</label>
                                 <Input type='text' placeholder='Name' value={name} onChange={(e) => {
                                     const value = e.target.value;
-                                    this.setState((state) => ({recipe: {...state.recipe, name: value}}))
+                                    this.setState((state) => ({
+                                        recipe: {
+                                            ...state.recipe,
+                                            recipe: {...state.recipe.recipe, name: value}
+                                        }
+                                    }));
                                 }}/>
                             </Form.Field>
                             <Form.Field>
@@ -71,11 +93,19 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                                 <TextArea placeholder='Description' value={description} onChange={(e) => {
                                     // @ts-ignore
                                     const value = e.target.value;
-                                    this.setState((state) => ({recipe: {...state.recipe, description: value}}))
+                                    this.setState((state) => ({
+                                        recipe: {
+                                            ...state.recipe,
+                                            recipe: {...state.recipe.recipe, description: value}
+                                        }
+                                    }));
                                 }}/>
                             </Form.Field>
                             <Form.Field>
                                 <label>Ingredients</label>
+                                <ul>
+                                    {ingredients.map(e => <li>{e.name}</li>)}
+                                </ul>
                                 <Input placeholder={"Add ingredient"} value={this.state.value} onChange={(e) => {
                                     this.setState({value: e.target.value})
                                 }}/>
@@ -83,9 +113,6 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                                     this.addIngredient({name: this.state.value});
                                     this.setState({value: ''})
                                 }}>Add</Button>
-                                <ul>
-                                    {ingredients.map(e => <li>{e.name}</li>)}
-                                </ul>
                             </Form.Field>
                         </Form>
                     </Modal.Description>
@@ -94,9 +121,14 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                 <Modal.Actions>
                     <Button onClick={() => this.props.onCancel()}>Cancel</Button>
                     <Button type='submit' onClick={() => {
-                        this.props.onSave({...this.state.recipe});
+                        this.props.recipe.id ?
+                            this.props.onEdit({...this.state.recipe}) :
+                            this.props.onSave({...this.state.recipe});
+
+
                         this.props.onCancel()
-                    }}>Create</Button>
+                    }}>
+                        {this.props.recipe.id ? "Edit" : "Create"}</Button>
                 </Modal.Actions>
             </Modal>
         )

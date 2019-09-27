@@ -1,23 +1,37 @@
 import IIngredient, {INewIngredient} from "./IIngredien";
+import {config} from "../config";
 
-export default interface IRecipe{
+export default interface IRecipe {
     id: string,
     name: string,
     description: string,
     imageUrl?: string,
     createdAt: Date,
-    ingredients: IIngredient[]
+    ingredients: IIngredient[],
+    version: number
 }
 
 export const newRecipeDefault: INewRecipe = {
-    name: '',
-    description: '',
-    ingredients: []
+    recipe: {
+        id: '',
+        name: '',
+        imageUrl: config.DEFAULT_RECIPE,
+        description: '',
+        ingredients: [],
+        version: 1,
+        createdAt: new Date()
+    }
 };
 
-export interface INewRecipe{
-    name: string,
-    description: string,
-    imageUrl?: string
-    ingredients: INewIngredient[]
+export interface INewRecipe {
+    id?: string,
+    recipe: {
+        id: string,
+        name: string,
+        description: string,
+        imageUrl?: string
+        ingredients: INewIngredient[],
+        version: number,
+        createdAt: Date
+    }
 }
