@@ -53,3 +53,24 @@
 .ui.card:first-child{
   margin: 1em 0 !important;
 }
+
+.grid-two-columns{
+  display: grid;
+  grid-template-columns: .3fr .7fr;
+  margin-bottom: 10px;
+}
+
+.image-add-wrp{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+#btn{
+  min-width: 106px;
+}
