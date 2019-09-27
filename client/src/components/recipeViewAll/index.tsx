@@ -16,17 +16,21 @@ interface IProps {
     fetchAllVersions: (id: string) => any,
     id: string | null
 }
+
 const RecipeView = (props: IProps) => {
     const id = props.match.params.id;
 
-    const [option, setOption] = useState<{id: string, prevRecipe: IRecipe}>({id: '', prevRecipe: newRecipeDefault.recipe});
+    const [option, setOption] = useState<{ id: string, prevRecipe: IRecipe }>({
+        id: '',
+        prevRecipe: newRecipeDefault.recipe
+    });
 
     if (props.id !== id || !(props.recipes && props.recipes[0])) {
         props.fetchAllVersions(id);
         return <Spinner/>
     }
 
-    if(!option.id){
+    if (!option.id) {
         setOption(props.recipes[0])
     }
     const {name, description, imageUrl, ingredients, createdAt, version} = option.prevRecipe;
@@ -44,8 +48,8 @@ const RecipeView = (props: IProps) => {
                 <Dropdown
                     options={options}
                     value={option.prevRecipe.version}
-                    onChange={(e,data) => {
-                        if(data.value && props.recipes){
+                    onChange={(e, data) => {
+                        if (data.value && props.recipes) {
                             setOption(props.recipes.filter(elem => elem.prevRecipe.version === data.value)[0])
                         }
                     }}
@@ -58,7 +62,9 @@ const RecipeView = (props: IProps) => {
                         {name}
                     </div>
                     <div className={"basic-info-description"}>
-                        {description}
+                        {description.split('\n').map(i => {
+                            return <p>{i}</p>
+                        })}
                     </div>
                 </div>
             </div>
