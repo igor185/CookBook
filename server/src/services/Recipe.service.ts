@@ -36,6 +36,9 @@ export const deleteRecipe = async ({id}: { id: string }) => {
     return await getCustomRepository(RecipeRepository).deleteRecipe(id);
 };
 
+export const getById = async (id: string):Promise<any>=> {
+    return getCustomRepository(PreviousRecipeRepository).getById(id);
+};
 export const update = async ({id, name, description, imageUrl, ingredients, version = 1}:
                                  { id: string, name: string, description: string, imageUrl: string, ingredients: Array<any>, version: number }) => {
     ingredients = await Promise.all(ingredients.map(async elem => {
@@ -46,9 +49,10 @@ export const update = async ({id, name, description, imageUrl, ingredients, vers
 
     let recipe = new Recipe(name, description, imageUrl, [], ++version);
     recipe.ingredients = ingredients;
-    recipe = await getCustomRepository(RecipeRepository).createRecipe(recipe);
 
-    await getCustomRepository(CurrentRecipeRepository).update({recipe: {id}}, {recipe});
+    await getCustomRepository(RecipeRepository).createRecipe(recipe);
+
+    await getCustomRepository(CurrentRecipeRepository).update({id}, {recipe: {id: recipe.id}});
 
     const currentRecipe = await getCustomRepository(CurrentRecipeRepository).findOne({recipe});
 
