@@ -4,5 +4,6 @@ export default interface IIngredient{
 }
 
 export interface INewIngredient {
+    id?: string,
     name: string
 }
