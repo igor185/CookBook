@@ -9,7 +9,8 @@ import {
     deleteRecipe,
     deleteRecipeFromList,
     editRecipe,
-    fetchRecipes, updateRecipeFromList
+    fetchRecipes,
+    updateRecipeFromList
 } from "../redux/actions";
 import RecipePreview from "./recipePreview";
 import SocketService from "../../../services/socket.service";
@@ -50,24 +51,34 @@ const RecipeList = (props: IProps) => {
 
     return (
         <div>
+            <h2 className={'center'}>All recipes</h2>
             <RecipeConstructor recipe={recipe} open={openModal} trigger={
-                <div className={'create-recipe-wrp'} onClick={() => {
-                    setModal(true);
-                    setRecipe(newRecipeDefault);
-                }}>
-                    <Button color="teal" centered={true}>Create new recipe</Button>
-                </div>} onSave={props.createRecipe}
+                <div>
+                    <div className={'create-recipe-wrp'} onClick={() => {
+                        setModal(true);
+                        setRecipe(newRecipeDefault);
+                    }}>
+                        <Button color="teal" centered={true}>Create new recipe</Button>
+                    </div>
+                    <div onClick={() => {
+                        setModal(true);
+                        setRecipe(newRecipeDefault);
+                    }}>
+                        <Button icon={"plus"} className={"create-recipe-plus"} circular color={'teal'}/>
+                    </div>
+                </div>
+            } onSave={props.createRecipe}
                                onCancel={() => setModal(false)}
-                                onEdit={props.editRecipe}/>
+                               onEdit={props.editRecipe}/>
             <div className={"cards-wrp"}>
                 {props.recipes.map(recipe =>
                     <NavLink to={'/recipe-view/' + recipe.id}>
                         <RecipePreview key={recipe.id} recipe={recipe}
                                        deleteRecipe={() => props.deleteRecipe(recipe.recipe.id)}
-                                        editRecipe={() => {
-                                            setModal(true);
-                                            setRecipe(recipe);
-                                        }}/>
+                                       editRecipe={() => {
+                                           setModal(true);
+                                           setRecipe(recipe);
+                                       }}/>
                     </NavLink>)}
             </div>
         </div>

@@ -1,39 +1,52 @@
 @import "../../styles/variables";
 
-#root{
+#root {
   background-color: rgba(50, 205, 50, 0.15);
   padding: 10px 0;
   min-height: 100vh;
 }
 
-.recipePhoto{
+.recipePhoto {
   width: $photo-width;
   height: $photo-height;
-  img{
+
+  img {
     width: 100%;
     height: 100%;
   }
 }
 
-.ui.modal .scrolling.content{
+.ui.modal .scrolling.content {
   height: 75vh;
 }
 
 
-.ui.labeled.icon.button, .ui.labeled.icon.button, #btn{
+.ui.labeled.icon.button, .ui.labeled.icon.button, #btn {
   padding-left: 10px !important;
   padding-right: 10px !important;
 }
 
 
 .create-recipe-wrp {
-  display: flex;
   justify-content: center;
   margin: 0 0 10px;
   padding-top: 10px;
+  display: none;
+}
+.center{
+  text-align: center;
+  margin: 10px 0 !important;
+
 }
 
-.container{
+.create-recipe-plus{
+  position: fixed;
+  z-index: 1;
+  bottom: 20px;
+  right: calc(15%/8);
+}
+
+.container {
   background-color: white;
   width: 85%;
   margin: 0 auto;
@@ -41,10 +54,11 @@
   justify-content: center;
   overflow: auto;
   padding: 0 10px 10px;
+  box-sizing: border-box;
 }
 
 
-.cards-wrp{
+.cards-wrp {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
@@ -52,32 +66,66 @@
   justify-content: center;
 }
 
-.ui.card{
+.ui.card {
   margin: 0;
   height: 100%;
 }
 
-.ui.card:first-child{
+.ui.card:first-child {
   margin: 0 !important;
 }
 
-.grid-two-columns{
+.grid-two-columns {
   display: grid;
   grid-template-columns: .3fr .7fr;
   margin-bottom: 10px;
 }
 
-.image-add-wrp{
+@media (max-width: 850px) {
+  .grid-two-columns {
+    grid-template-columns: none;
+  }
+}
+
+.image-add-wrp {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-#btn{
+#btn {
   min-width: 106px;
+}
+
+
+@media (max-width: 800px) {
+  .container{
+    width: 100%;
+  }
+  .create-recipe-plus{
+    display: none !important;
+  }
+
+  .create-recipe-wrp{
+    display: flex;
+  }
+
+  .center{
+    margin-bottom: 0 !important;
+  }
+
+  @media (max-width:452px) {
+    .cards-wrp{
+      a{
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
 }

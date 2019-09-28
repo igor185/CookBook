@@ -28,4 +28,21 @@
       margin-top: 5px;
     }
   }
+  .meta{
+    font-size: 1em;
+    color: rgba(0,0,0,.4);
+  }
+
+  @media (max-width: 625px) {
+    .description{
+      float: left;
+    }
+
+    .photo-wrp{
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+  }
 }
