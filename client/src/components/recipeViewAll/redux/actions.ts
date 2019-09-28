@@ -1,4 +1,4 @@
-import {GET_ALL_VERSIONS} from "./actionTypes";
+import {DELETE, GET_ALL_VERSIONS} from "./actionTypes";
 
 export const fetchAllVersions = (id: string) => {
     return {
@@ -8,3 +8,7 @@ export const fetchAllVersions = (id: string) => {
         }
     }
 };
+
+export const deleteRecipeVersions = () => ({
+    type: DELETE
+});

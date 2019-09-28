@@ -1,4 +1,4 @@
-import {GET_ALL_VERSIONS, SET_ALL_VERSIONS} from "./actionTypes";
+import {DELETE, GET_ALL_VERSIONS, SET_ALL_VERSIONS} from "./actionTypes";
 import IRecipe from "../../../interfaces/IRecipe";
 
 const initialState: {
@@ -19,6 +19,7 @@ export const recipeAdapter = (arr: any) => {
     }).reverse()
 };
 
+
 export default function (state = initialState, action: any) {
     switch (action.type) {
         case SET_ALL_VERSIONS:
@@ -30,6 +31,12 @@ export default function (state = initialState, action: any) {
             return{
                 ...state,
                 id: action.payload.id,
+                recipes: null
+            };
+        case DELETE:
+            return {
+                ...state,
+                id: null,
                 recipes: null
             };
         default:
