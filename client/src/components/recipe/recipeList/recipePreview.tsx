@@ -24,11 +24,11 @@ const RecipePreview = (props: {
             </div>
             {hover && (
                 <div className={"preview-icons-wrp"}>
-                    <Button icon={'write'} className={'icon'} onClick={(e) => {
+                    <Button icon={'write'} className={'icon'} size={'mini'} onClick={(e) => {
                         e.preventDefault();
                         props.editRecipe();
                     }}/>
-                    <Button icon={'trash'} className={'icon'} onClick={(e) => {
+                    <Button icon={'trash'} className={'icon'} size={'mini'} onClick={(e) => {
                         e.preventDefault();
                         props.deleteRecipe();
                     }}/>

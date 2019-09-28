@@ -6,6 +6,7 @@ import Spinner from "../spinner/Spinner";
 import {Dropdown, Image} from 'semantic-ui-react';
 import './style.scss'
 import {fetchAllVersions} from "./redux/actions";
+import moment from "moment";
 
 interface IProps {
     match: any,
@@ -33,7 +34,7 @@ const RecipeView = (props: IProps) => {
     if (!option.id) {
         setOption(props.recipes[0])
     }
-    const {name, description, imageUrl, ingredients} = option.prevRecipe;
+    const {name, description, imageUrl, ingredients, createdAt} = option.prevRecipe;
 
     const options: Array<any> = props.recipes.map(elem => ({
         key: elem.prevRecipe.id,
@@ -55,12 +56,15 @@ const RecipeView = (props: IProps) => {
                     }}
                 />
             </span>
+            <div className={"meta"}>{moment(createdAt).fromNow()}</div>
             <div className="header">
                 <h2>{name}</h2>
             </div>
             <div className={"basic"}>
-                <Image src={imageUrl} size={'medium'} floated={'left'}/>
-                <div>
+                <div className={"photo-wrp"}>
+                    <Image src={imageUrl} size={'medium'} floated={'left'}/>
+                </div>
+                <div className={"description"}>
                     {description.split('\n').map(i => {
                         return <p>{i}</p>
                     })}

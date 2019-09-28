@@ -1,10 +1,12 @@
 import React from 'react';
 import {INewRecipe} from "../../interfaces/IRecipe";
-import {Button, Form, Image, Input, Modal, Popup, TextArea} from "semantic-ui-react";
+import {Button, Form, Image, Input, Modal, Popup} from "semantic-ui-react";
 import {config} from "../../config";
 import './recipe.scss';
 import ImageUploader from "../imageUploader/imageUploader";
 import {INewIngredient} from "../../interfaces/IIngredien";
+import TextArea from 'react-textarea-autosize';
+
 
 export interface IProps {
     recipe: INewRecipe,
@@ -142,6 +144,7 @@ class RecipeConstructor extends React.Component<IProps, IState> {
                         <Form>
                             <Form.Field>
                                 <label>Description</label>
+
                                 <TextArea placeholder='Description' value={description} onChange={(e) => {
                                     // @ts-ignore
                                     const value = e.target.value;
