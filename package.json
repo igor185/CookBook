@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "concurrently \"cd client && npm run build \"",
-    "install": "(cd client && npm i) && (cd server && npm i)",
-    "start": "cd server && npm run start"
+    "build": "concurrently \"cd client && yarn run build \"",
+    "install": "(cd client && yarn) && (cd server && yarn)",
+    "start": "cd server && yarn run start"
   },
   "repository": {
     "type": "git",

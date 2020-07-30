@@ -8,18 +8,18 @@ router
     .get('/', (req: Request, res: Response, next: NextFunction) => {
         RecipeService.getAll()
             .then(data => res.send(data))
-            .catch(next)
+            .catch(next);
     })
     // @ts-ignore
-    .put('/', (req: Request & { io: any }, res: Response, next: NextFunction) => {
+    .put('/', (req: Request & { io?: any }, res: Response, next: NextFunction) => {
         RecipeService.create(req.body)
             .then(data => {
                 req.io.emit('new-recipe', data);
                 res.send(data);
             })
-            .catch(next)
+            .catch(next);
     })
-    .post('/', (req: Request & { io: any }, res: Response, next: NextFunction) =>{
+    .post('/', (req: Request & { io?: any }, res: Response, next: NextFunction) =>{
         RecipeService.update(req.body)
             .then(data => {
                 req.io.emit('update-recipe', data);
@@ -32,7 +32,7 @@ router
           .then(data => res.send(data))
           .catch(next)
     })
-    .delete('/', (req: Request & { io: any }, res: Response, next: NextFunction)=> {
+    .delete('/', (req: Request & { io?: any }, res: Response, next: NextFunction)=> {
         RecipeService.deleteRecipe(req.body)
             .then(() => {
                 req.io.emit('delete-recipe', req.body.id);
